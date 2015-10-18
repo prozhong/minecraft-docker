@@ -5,11 +5,12 @@ FROM ubuntu:14.04
 
 MAINTAINER prozhong <prozhong@msn.cn>
 
-#default directory for SPIGOT-server
-ENV SPIGOT_HOME /data/minecraft
-
+RUN mkdir -p /data/minecraft
 ADD sources.list /etc/apt/sources.list
 ADD spigot_init.sh /spigot_init.sh
+ADD eula.txt /data/minecraft/eula.txt
+ADD ops.json /data/minecraft/ops.json
+ADD server.properties /data/minecraft/server.properties
 RUN chmod +x /spigot_init.sh
 
 # fast workaround
@@ -17,7 +18,7 @@ RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install openjdk-7-jre-headless wget
 RUN apt-get install -y openssh-server
 RUN mkdir -p /var/run/sshd
-RUN echo "root:get25565" | chpasswd
+RUN echo 'root:25565' | chpasswd
 RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
 # SSH login fix. Otherwise user is kicked off after login
@@ -33,6 +34,8 @@ RUN useradd -s /bin/bash -d /minecraft -m minecraft
 # /data contains static files and database
 VOLUME ["/data"]
 
+#default directory for SPIGOT-server
+ENV SPIGOT_HOME /data/minecraft
 
 # expose minecraft port
 EXPOSE 25565
