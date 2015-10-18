@@ -12,7 +12,7 @@ fi
 #only build if jar file does not exist
 if [ ! -f $SPIGOT_HOME/spigot.jar ]; then 
   echo "Download PaperSpigot..."
-  wget -q -c https://s3.amazonaws.com/Minecraft.Download/versions/1.7.10/minecraft_server.1.7.10.jar -O $SPIGOT_HOME/spigot.jar
+  wget -q -c http://tcpr.ca/files/paperspigot/PaperSpigot-1.8.8-R0.1-SNAPSHOT-latest.jar -O $SPIGOT_HOME/spigot.jar
   #accept eula
   echo "eula=true" > $SPIGOT_HOME/eula.txt
 fi
@@ -23,7 +23,7 @@ chown -R minecraft.minecraft $SPIGOT_HOME/
 
 cd $SPIGOT_HOME/
 su - minecraft -c 'java -Xms256M -Xmx512M -jar spigot.jar'
-
+echo "Started."
 # fallback to root and run shell if spigot don't start/forced exit
 bash
 
