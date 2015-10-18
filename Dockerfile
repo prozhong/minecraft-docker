@@ -8,12 +8,11 @@ MAINTAINER prozhong <prozhong@msn.cn>
 #default directory for SPIGOT-server
 ENV SPIGOT_HOME /data/minecraft
 
+ADD sources.list /etc/apt/sources.list
 ADD spigot_init.sh /spigot_init.sh
 RUN chmod +x /spigot_init.sh
 
 # fast workaround
-RUN cd /etc/apt && \
-    wget -c http://mirrors.163.com/.help/sources.list.trusty -O sources.list
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install openjdk-7-jre-headless wget
 RUN apt-get install -y openssh-server
