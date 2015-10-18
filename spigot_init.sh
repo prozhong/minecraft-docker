@@ -7,7 +7,6 @@ if [ "$EULA" != "true" ]; then
   echo "** include -e EULA=true on the docker run command              **"
   echo "*****************************************************************"
   echo "*****************************************************************"
-  exit
 fi
 
 #only build if jar file does not exist
