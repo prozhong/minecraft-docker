@@ -23,7 +23,7 @@ RUN useradd -s /bin/bash -d /data -m minecraft
 
 # Download Minecraft Server components
 
-RUN wget -q https://s3.amazonaws.com/Minecraft.Download/versions/1.8.8/minecraft_server.1.8.8.jar -O /data/minecraft_server.1.8.8.jar
+RUN wget -q https://s3.amazonaws.com/Minecraft.Download/versions/1.8.8/minecraft_server.1.8.8.jar
 
 # Download Minecraft Server Config
 
@@ -38,5 +38,5 @@ EXPOSE 25565
 
 #set default command
 #CMD ["/usr/sbin/sshd", "-D"]
-CMD java -jar /data/minecraft_server.1.8.8.jar
+CMD echo eula=true > /data/eula.txt &&java -jar /minecraft_server.1.8.8.jar
 
