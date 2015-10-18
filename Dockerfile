@@ -5,12 +5,12 @@ FROM ubuntu:14.04
 
 MAINTAINER prozhong <prozhong@msn.cn>
 
-RUN mkdir -p /data/minecraft
+RUN mkdir -p /data
 ADD sources.list /etc/apt/sources.list
 ADD spigot_init.sh /spigot_init.sh
-ADD eula.txt /data/minecraft/eula.txt
-ADD ops.json /data/minecraft/ops.json
-ADD server.properties /data/minecraft/server.properties
+ADD eula.txt /data/eula.txt
+ADD ops.json /data/ops.json
+ADD server.properties /data/server.properties
 RUN chmod +x /spigot_init.sh
 
 # fast workaround
@@ -29,19 +29,19 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 
 # Make special user for minecraft to run in
 
-RUN useradd -s /bin/bash -d /minecraft -m minecraft
+RUN useradd -s /bin/bash -d /data -m minecraft
 
 # /data contains static files and database
 VOLUME ["/data"]
-
+WORKDIR /data
 #default directory for SPIGOT-server
-ENV SPIGOT_HOME /data/minecraft
+ENV SPIGOT_HOME /data
 
 # expose minecraft port
 EXPOSE 25565
 EXPOSE 22
 
 #set default command
-CMD ["/usr/sbin/sshd", "-D"]
+#CMD ["/usr/sbin/sshd", "-D"]
 CMD /spigot_init.sh
 
