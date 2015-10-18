@@ -10,18 +10,18 @@ if [ "$EULA" != "true" ]; then
 fi
 
 #only build if jar file does not exist
-if [ ! -f /$SPIGOT_HOME/spigot.jar ]; then 
+if [ ! -f $SPIGOT_HOME/spigot.jar ]; then 
   echo "Download PaperSpigot..."
-  curl "http://tcpr.ca/files/paperspigot/PaperSpigot-1.8.8-R0.1-SNAPSHOT-latest.jar" -o /$SPIGOT_HOME/spigot.jar
+  wget -q -c https://s3.amazonaws.com/Minecraft.Download/versions/1.7.10/minecraft_server.1.7.10.jar -O $SPIGOT_HOME/spigot.jar
   #accept eula
-  echo "eula=true" > /$SPIGOT_HOME/eula.txt
+  echo "eula=true" > $SPIGOT_HOME/eula.txt
 fi
 
 # chance owner to minecraft
-chown -R minecraft.minecraft /$SPIGOT_HOME/
+chown -R minecraft.minecraft $SPIGOT_HOME/
 
 
-cd /$SPIGOT_HOME/
+cd $SPIGOT_HOME/
 su - minecraft -c 'java -Xms256M -Xmx512M -jar spigot.jar'
 
 # fallback to root and run shell if spigot don't start/forced exit
