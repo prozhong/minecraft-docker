@@ -12,16 +12,10 @@ fi
 
 #only build if jar file does not exist
 if [ ! -f /$SPIGOT_HOME/spigot.jar ]; then 
-  echo "Building spigot jar file, be patient"
-  mkdir -p /$SPIGOT_HOME/build
-  cd /$SPIGOT_HOME/build
-  wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
-  HOME=/$SPIGOT_HOME/build java -jar BuildTools.jar
-  cp /$SPIGOT_HOME/build/Spigot/Spigot-Server/target/spigot-1.8*.jar /$SPIGOT_HOME/spigot.jar
-
-  #accept eola
+  echo "Download PaperSpigot..."
+  curl "http://tcpr.ca/files/paperspigot/PaperSpigot-1.8.8-R0.1-SNAPSHOT-latest.jar" -o /$SPIGOT_HOME/spigot.jar
+  #accept eula
   echo "eula=true" > /$SPIGOT_HOME/eula.txt
-
 fi
 
 # chance owner to minecraft
