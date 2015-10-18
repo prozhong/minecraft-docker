@@ -12,7 +12,8 @@ ADD spigot_init.sh /spigot_init.sh
 RUN chmod +x /spigot_init.sh
 
 # fast workaround
-RUN echo "deb http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse" > /etc/apt/sources.list
+RUN cd /etc/apt && \
+    wget -c http://mirrors.163.com/.help/sources.list.trusty -O sources.list
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install openjdk-7-jre-headless wget
 RUN apt-get install -y openssh-server
