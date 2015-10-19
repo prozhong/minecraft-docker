@@ -19,7 +19,7 @@ RUN wget -q https://s3.amazonaws.com/Minecraft.Download/versions/1.8.8/minecraft
 
 RUN mkdir /data && \
     cd /data && \
-    wget -q https://raw.githubusercontent.com/prozhong/minecraft-docker/master/server.properties -O server.properties
+    wget -q --no-check-certificate https://raw.githubusercontent.com/prozhong/minecraft-docker/master/server.properties -O server.properties
     
 # Make special user for minecraft to run in
 
@@ -36,5 +36,5 @@ EXPOSE 25565
 
 #set default command
 #CMD ["/usr/sbin/sshd", "-D"]
-CMD echo eula=true > /data/eula.txt && wget -q https://raw.githubusercontent.com/prozhong/minecraft-docker/master/server.properties -O server.properties&& java -Xms256M -Xmx512M -jar /minecraft_server.1.8.8.jar
+CMD echo eula=true > /data/eula.txt && wget -q --no-check-certificate https://raw.githubusercontent.com/prozhong/minecraft-docker/master/server.properties -O server.properties&& java -Xms256M -Xmx512M -jar /minecraft_server.1.8.8.jar
 
