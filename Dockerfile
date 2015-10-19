@@ -5,13 +5,7 @@ FROM ubuntu:14.04
 
 MAINTAINER prozhong <prozhong@msn.cn>
 
-RUN mkdir /data
 ADD sources.list /etc/apt/sources.list
-#ADD spigot_init.sh /spigot_init.sh
-ADD eula.txt /data/eula.txt
-ADD ops.json /data/ops.json
-ADD server.properties /data/server.properties
-#RUN chmod +x /spigot_init.sh
 
 # fast workaround
 RUN apt-get update
@@ -23,7 +17,8 @@ RUN wget -q https://s3.amazonaws.com/Minecraft.Download/versions/1.8.8/minecraft
 
 # Download Minecraft Server Config
 
-RUN cd /data && \
+RUN mkdir /data && \
+    cd /data && \
     wget -q https://raw.githubusercontent.com/prozhong/minecraft-docker/master/server.properties
     
 # Make special user for minecraft to run in
@@ -41,5 +36,5 @@ EXPOSE 25565
 
 #set default command
 #CMD ["/usr/sbin/sshd", "-D"]
-CMD echo eula=true > /data/eula.txt &&java -Xms256M -Xmx512M -jar /minecraft_server.1.8.8.jar
+CMD echo eula=true > /data/eula.txt && wget -q https://raw.githubusercontent.com/prozhong/minecraft-docker/master/server.properties && java -Xms256M -Xmx512M -jar /minecraft_server.1.8.8.jar
 
