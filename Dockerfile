@@ -27,6 +27,10 @@ RUN wget -q https://s3.amazonaws.com/Minecraft.Download/versions/1.8.8/minecraft
 
 # Download Minecraft Server Config
 
+RUN mkdir /data && \
+    cd /data && \
+    wget -q https://raw.githubusercontent.com/prozhong/minecraft-docker/master/server.properties
+
 # /data contains static files and database
 VOLUME ["/data"]
 WORKDIR /data
