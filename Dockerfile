@@ -38,5 +38,5 @@ EXPOSE 25565
 
 #set default command
 #CMD ["/usr/sbin/sshd", "-D"]
-CMD echo eula=true > /data/eula.txt &&java -jar /minecraft_server.1.8.8.jar
+CMD echo eula=true > /data/eula.txt &&java -Xms256M -Xmx512M -jar /minecraft_server.1.8.8.jar
 
