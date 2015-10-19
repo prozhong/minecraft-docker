@@ -17,10 +17,6 @@ ADD server.properties /data/server.properties
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install openjdk-7-jre-headless wget
 
-# Make special user for minecraft to run in
-
-RUN useradd -s /bin/bash -d /data -m minecraft
-
 # Download Minecraft Server components
 
 RUN wget -q https://s3.amazonaws.com/Minecraft.Download/versions/1.8.8/minecraft_server.1.8.8.jar
@@ -30,6 +26,10 @@ RUN wget -q https://s3.amazonaws.com/Minecraft.Download/versions/1.8.8/minecraft
 RUN mkdir /data && \
     cd /data && \
     wget -q https://raw.githubusercontent.com/prozhong/minecraft-docker/master/server.properties
+    
+# Make special user for minecraft to run in
+
+RUN useradd -s /bin/bash -d /data -m minecraft
 
 # /data contains static files and database
 VOLUME ["/data"]
